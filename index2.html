@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HTML: подготовка к CSS</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1d2433;--mute:#667085;--line:#e1e5ee;--acc:#3b5bdb;--accbg:#e8edff;--ok:#1f9d55;--okbg:#e3f6ea;--bad:#d6336c;--badbg:#fde8f0;--code:#141a2e;--codeink:#c9d4ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10131c;--card:#181c28;--ink:#e8ebf4;--mute:#98a2b8;--line:#2a3042;--acc:#8ea2ff;--accbg:#232b4d;--ok:#4cd08a;--okbg:#14301f;--bad:#ff7aa8;--badbg:#3a1525}}
+:root[data-theme="dark"]{--bg:#10131c;--card:#181c28;--ink:#e8ebf4;--mute:#98a2b8;--line:#2a3042;--acc:#8ea2ff;--accbg:#232b4d;--ok:#4cd08a;--okbg:#14301f;--bad:#ff7aa8;--badbg:#3a1525}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 Manrope,system-ui,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:clamp(28px,6vw,40px);font-weight:800;margin:8px 0 4px;letter-spacing:-.02em}
+.sub{color:var(--mute);margin:0 0 20px}
+nav.tabs{display:flex;gap:6px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5}
+nav.tabs button{flex:1;padding:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font:600 15px Manrope,sans-serif;cursor:pointer}
+nav.tabs button[aria-selected=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:12px 0}
+.card h3{margin:0 0 6px;font-size:18px}
+code,pre{font-family:'JetBrains Mono',monospace;font-size:14px}
+pre{background:var(--code);color:var(--codeink);padding:12px 14px;border-radius:10px;overflow-x:auto;margin:8px 0;white-space:pre}
+code.i{background:var(--accbg);color:var(--acc);padding:1px 6px;border-radius:5px}
+.sem{border-left:4px solid var(--acc)}
+table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}
+td,th{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.q h3{font-size:17px;margin:0 0 10px}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;font:500 14px 'JetBrains Mono',monospace;cursor:pointer}
+.opt.txt{font:500 15px Manrope,sans-serif}
+.opt:disabled{cursor:default}
+.opt.ok{background:var(--okbg);border-color:var(--ok)}
+.opt.bad{background:var(--badbg);border-color:var(--bad)}
+.why{margin-top:8px;color:var(--mute);font-size:14px}
+.btn{padding:10px 16px;border:0;border-radius:10px;background:var(--acc);color:#fff;font:700 15px Manrope,sans-serif;cursor:pointer}
+.btn.g{background:var(--accbg);color:var(--acc)}
+.score{font-size:22px;font-weight:800}
+textarea{width:100%;min-height:150px;background:var(--code);color:var(--codeink);border:1px solid var(--line);border-radius:10px;padding:12px;font:500 14px/1.5 'JetBrains Mono',monospace;resize:vertical}
+iframe{width:100%;height:170px;border:1px solid var(--line);border-radius:10px;background:#fff;margin-top:8px}
+.chk{margin:10px 0 0;padding:0;list-style:none}
+.chk li{padding:4px 0}
+.chk li.ok{color:var(--ok)}.chk li.bad{color:var(--bad)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.done{background:var(--okbg);color:var(--ok);padding:2px 10px;border-radius:99px;font-size:13px;font-weight:700;margin-left:8px}
+pre.demo{background:#fff;color:#222;font-family:Manrope,sans-serif;white-space:normal}.tag{display:inline-block;padding:1px 8px;border-radius:6px;background:var(--accbg);color:var(--acc);font:500 13px JetBrains Mono,monospace;margin:2px 2px 2px 0}.d1{background:#ffe3a3;padding:4px 8px;margin:4px 0;color:#222}.s1{background:#bfe3ff;padding:2px 6px;color:#222}.tb td,.tb th{border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>HTML: подготовка к CSS</h1>
+<p class="sub">class и id, div и span, формы, таблицы, комментарии и спецсимволы.</p>
+<nav class="tabs" role="tablist">
+<button role="tab" aria-selected="true" data-t="theory">Теория</button>
+<button role="tab" aria-selected="false" data-t="test">Тест</button>
+<button role="tab" aria-selected="false" data-t="prac">Практика</button>
+</nav>
+
+<section id="theory" class="on">
+
+<div class="card sem"><h3>1. Атрибуты class и id</h3>
+<p>Атрибут это дополнительная настройка тега, она пишется внутри открывающего тега: <code class="i">имя="значение"</code>. Атрибуты <code class="i">class</code> и <code class="i">id</code> дают элементу «имя», по которому CSS находит, что оформлять.</p>
+<script type="text/plain" class="src"><p class="note">Обычный абзац</p>
+<p class="note big">Два класса через пробел</p>
+<h2 id="main-title">Заголовок</h2></script>
+<table>
+<tr><th></th><th>class</th><th>id</th></tr>
+<tr><td>Повторяется</td><td>да, один класс на много элементов</td><td>нет, на странице только один такой id</td></tr>
+<tr><td>Несколько значений</td><td>да, через пробел</td><td>нет, одно значение</td></tr>
+<tr><td>В CSS</td><td>.note</td><td>#main-title</td></tr>
+<tr><td>Для чего</td><td>общий стиль группы элементов</td><td>уникальный элемент, якорь для ссылки, связь с label</td></tr>
+</table>
+<p>Правила имён: латиница, цифры, дефис и подчёркивание, без пробелов и не с цифры. Лучше называть по смыслу (<code class="i">price</code>, <code class="i">menu-item</code>), а не по внешнему виду (<code class="i">red-text</code>).</p>
+<p>Через id можно сделать ссылку на место страницы: <code class="i">&lt;a href="#main-title"&gt;</code> прокрутит к элементу с таким id.</p></div>
+
+<div class="card sem"><h3>2. div и span, блочные и строчные элементы</h3>
+<p><code class="i">&lt;div&gt;</code> и <code class="i">&lt;span&gt;</code> ничего не значат сами по себе и нужны, чтобы сгруппировать содержимое и повесить на него class или id.</p>
+<table>
+<tr><th>Блочные (block)</th><th>Строчные (inline)</th></tr>
+<tr><td>Начинаются с новой строки</td><td>Идут в строку друг за другом</td></tr>
+<tr><td>Занимают всю ширину родителя</td><td>Занимают столько места, сколько нужно содержимому</td></tr>
+<tr><td>Можно задавать ширину и высоту</td><td>Ширину и высоту задать нельзя</td></tr>
+<tr><td><code class="i">div</code>, <code class="i">p</code>, <code class="i">h1</code>–<code class="i">h6</code>, <code class="i">ul</code>, <code class="i">ol</code>, <code class="i">li</code>, <code class="i">header</code>, <code class="i">main</code>, <code class="i">footer</code>, <code class="i">section</code>, <code class="i">form</code>, <code class="i">table</code></td><td><code class="i">span</code>, <code class="i">a</code>, <code class="i">b</code>, <code class="i">i</code>, <code class="i">u</code>, <code class="i">sub</code>, <code class="i">sup</code>, <code class="i">img</code>, <code class="i">button</code>, <code class="i">input</code></td></tr>
+</table>
+<p>Как это выглядит: два <code class="i">div</code> идут друг под другом, два <code class="i">span</code> стоят в одной строке.</p>
+<pre class="demo"><div class="d1">div 1</div><div class="d1">div 2</div><span class="s1">span 1</span> <span class="s1">span 2</span></pre>
+<script type="text/plain" class="src"><div class="card">
+  <h3>Товар</h3>
+  <p>Цена: <span class="price">500</span> руб.</p>
+</div></script>
+<p>Правило выбора: нужно сгруппировать целый блок, значит <code class="i">div</code>. Нужно выделить кусочек внутри текста, значит <code class="i">span</code>. Если подходит семантический тег (<code class="i">header</code>, <code class="i">section</code> и другие), берут его, а не <code class="i">div</code>.</p></div>
+
+<div class="card sem"><h3>3. Формы</h3>
+<p>Форма собирает данные от пользователя. Всё лежит внутри <code class="i">&lt;form&gt;</code>.</p>
+<script type="text/plain" class="src"><form>
+  <label for="name">Имя:</label>
+  <input type="text" id="name" placeholder="Введите имя">
+  <button type="submit">Отправить</button>
+</form></script>
+<h3>label</h3>
+<p>Подпись к полю. Если <code class="i">for</code> у label равен <code class="i">id</code> у поля, то клик по подписи ставит курсор в поле (а у флажка отмечает его). Здесь и пригождается id.</p>
+<h3>Типы input</h3>
+<table>
+<tr><th>type</th><th>Что получится</th></tr>
+<tr><td><code class="i">text</code></td><td>однострочный текст (по умолчанию)</td></tr>
+<tr><td><code class="i">password</code></td><td>символы скрыты точками</td></tr>
+<tr><td><code class="i">email</code></td><td>адрес почты, браузер проверяет наличие @</td></tr>
+<tr><td><code class="i">number</code></td><td>число со стрелками, можно задать min и max</td></tr>
+<tr><td><code class="i">tel</code></td><td>номер телефона</td></tr>
+<tr><td><code class="i">date</code></td><td>выбор даты</td></tr>
+<tr><td><code class="i">color</code></td><td>выбор цвета</td></tr>
+<tr><td><code class="i">range</code></td><td>ползунок</td></tr>
+<tr><td><code class="i">checkbox</code></td><td>флажок, можно отметить несколько</td></tr>
+<tr><td><code class="i">radio</code></td><td>переключатель, выбор одного из группы</td></tr>
+<tr><td><code class="i">submit</code></td><td>кнопка отправки формы</td></tr>
+</table>
+<h3>Полезные атрибуты</h3>
+<p><code class="i">placeholder</code> подсказка внутри пустого поля. <code class="i">name</code> имя поля, по нему данные уходят на сервер. <code class="i">value</code> значение по умолчанию. <code class="i">required</code> поле обязательно. <code class="i">checked</code> флажок отмечен заранее. <code class="i">disabled</code> поле недоступно.</p>
+<h3>Флажки и переключатели</h3>
+<script type="text/plain" class="src"><input type="checkbox" id="agree" required>
+<label for="agree">Согласен с правилами</label>
+
+<input type="radio" name="size" id="s" value="s">
+<label for="s">S</label>
+<input type="radio" name="size" id="m" value="m" checked>
+<label for="m">M</label></script>
+<p>У переключателей одной группы одинаковый <code class="i">name</code>, иначе можно будет выбрать сразу несколько.</p>
+<h3>textarea и select</h3>
+<script type="text/plain" class="src"><textarea name="msg" rows="4" cols="30" placeholder="Сообщение"></textarea>
+
+<select name="city">
+  <option value="msk">Москва</option>
+  <option value="spb" selected>Санкт-Петербург</option>
+  <option value="kzn">Казань</option>
+</select></script>
+<p><code class="i">textarea</code> многострочное поле, у него есть закрывающий тег, текст между тегами станет начальным значением. <code class="i">select</code> выпадающий список, каждый пункт это <code class="i">option</code>.</p></div>
+
+<div class="card sem"><h3>4. Таблицы</h3>
+<table class="tb">
+<tr><th>Тег</th><th>Что это</th></tr>
+<tr><td><code class="i">table</code></td><td>вся таблица</td></tr>
+<tr><td><code class="i">tr</code></td><td>строка (table row)</td></tr>
+<tr><td><code class="i">th</code></td><td>ячейка заголовка (жирная, по центру)</td></tr>
+<tr><td><code class="i">td</code></td><td>обычная ячейка (table data)</td></tr>
+<tr><td><code class="i">caption</code></td><td>название таблицы</td></tr>
+<tr><td><code class="i">thead</code>, <code class="i">tbody</code>, <code class="i">tfoot</code></td><td>шапка, тело и итог таблицы</td></tr>
+</table>
+<script type="text/plain" class="src"><table>
+  <caption>Оценки</caption>
+  <thead>
+    <tr><th>Имя</th><th>Математика</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Аня</td><td>5</td></tr>
+    <tr><td>Ваня</td><td>4</td></tr>
+  </tbody>
+</table></script>
+<p>Таблица строится строками: сначала <code class="i">tr</code>, внутри него ячейки. Колонок отдельным тегом нет, их количество определяется числом ячеек в строке.</p>
+<p>Объединение ячеек: <code class="i">colspan="2"</code> растягивает ячейку на две колонки, <code class="i">rowspan="2"</code> на две строки.</p>
+<script type="text/plain" class="src"><tr><th colspan="2">Итого</th></tr></script>
+<p>Таблицы нужны для данных. Делать ими макет страницы нельзя, для этого есть div и CSS.</p></div>
+
+<div class="card sem"><h3>5. Комментарии и спецсимволы</h3>
+<h3>Комментарии</h3>
+<script type="text/plain" class="src"><!-- Это комментарий, его не видно на странице -->
+<p>Видимый текст</p>
+<!-- <p>Временно отключённый абзац</p> --></script>
+<p>Комментарии нужны для заметок себе и чтобы временно «выключить» кусок кода. Горячая клавиша в редакторе: <code class="i">Ctrl + /</code>. Всё равно помни, что комментарий виден в исходном коде страницы любому.</p>
+<h3>Спецсимволы (HTML-сущности)</h3>
+<p>Некоторые символы нельзя написать как есть. Например, <code class="i">&lt;</code> браузер примет за начало тега. Для них есть записи вида <code class="i">&amp;имя;</code>.</p>
+<table>
+<tr><th>Запись</th><th>Символ</th><th>Зачем</th></tr>
+<tr><td><code class="i">&amp;nbsp;</code></td><td>неразрывный пробел</td><td>несколько пробелов подряд и пробел, где нельзя переносить строку</td></tr>
+<tr><td><code class="i">&amp;copy;</code></td><td>©</td><td>знак авторского права</td></tr>
+<tr><td><code class="i">&amp;lt;</code></td><td>&lt;</td><td>показать знак «меньше» в тексте</td></tr>
+<tr><td><code class="i">&amp;gt;</code></td><td>&gt;</td><td>показать знак «больше»</td></tr>
+<tr><td><code class="i">&amp;amp;</code></td><td>&amp;</td><td>показать амперсанд</td></tr>
+<tr><td><code class="i">&amp;quot;</code></td><td>"</td><td>кавычка</td></tr>
+</table>
+<script type="text/plain" class="src"><p>&copy; 2026 Мой сайт</p>
+<p>Чтобы написать тег, используй &lt;p&gt; вместо <p></p></script>
+<p>Обычные пробелы браузер схлопывает в один, поэтому сколько ни нажимай пробел, в тексте будет один. А <code class="i">&amp;nbsp;</code> вставляется каждый раз.</p></div>
+</section>
+
+<section id="test">
+<div id="qs"></div>
+<div class="card"><span class="score" id="score"></span>
+<div class="row"><button class="btn g" id="reset">Пройти заново</button></div></div>
+</section>
+
+<section id="prac"><div id="tasks"></div></section>
+</div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+document.querySelectorAll('script.src').forEach(s=>{const p=document.createElement('pre');p.textContent=s.textContent.trim();s.replaceWith(p)});
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===b.dataset.t));
+  scrollTo(0,0);
+});
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+
+/* ---------- ТЕСТ ---------- */
+const Q=[
+["Каким атрибутом дают элементу уникальное имя, которое не должно повторяться на странице?",["class","id","name","type"],1,"id уникален. class можно использовать на многих элементах."],
+["Как записать два класса у одного элемента?",['<p class="a, b">','<p class="a b">','<p class="a" class="b">','<p class="a;b">'],1,"Классы пишутся через пробел в одном атрибуте."],
+["Какое имя класса записано правильно?",["my class","3-block","menu-item","menu item!"],2,"Латиница, цифры, дефис, без пробелов и не с цифры."],
+["Как в CSS обращаются к классу «note»?",["#note",".note","note()","@note"],1,"Класс начинается с точки, id с решётки."],
+["Какой элемент строчный (inline)?",["<div>","<p>","<span>","<h1>"],2,"span идёт в строку и занимает ширину содержимого."],
+["Что делает блочный элемент?",["Идёт в одной строке с соседями","Занимает всю ширину и начинается с новой строки","Всегда невидим","Работает только внутри p"],1,"Так ведут себя div, p, h1, ul и подобные."],
+["Что лучше взять, чтобы выделить одно слово внутри абзаца?",["<div>","<span>","<section>","<table>"],1,"span строчный, он не ломает строку."],
+["Как связать label с полем ввода?",['for у label равен id у input','name у label равен type у input','class у label равен class у input','Никак, они связаны сами'],0,"Тогда клик по подписи активирует поле."],
+["Какой type нужен для поля, где символы скрыты точками?",["hidden","secret","password","text"],2,'<input type="password">.'],
+["Что объединяет переключатели radio в одну группу?",["Одинаковый id","Одинаковый name","Одинаковый value","Одинаковый placeholder"],1,"Из группы с одним name можно выбрать только один вариант."],
+["Какой тег делает многострочное поле для текста?",["<input>","<textarea>","<select>","<text>"],1,"textarea имеет закрывающий тег и атрибуты rows и cols."],
+["Как называется пункт внутри выпадающего списка <select>?",["<li>","<item>","<option>","<td>"],2,"<select><option>…</option></select>."],
+["Какой тег создаёт строку таблицы?",["<td>","<tr>","<th>","<row>"],1,"tr, table row."],
+["Чем th отличается от td?",["Это ячейка заголовка, текст жирный и по центру","Это целая строка","Это название таблицы","Ничем, это одно и то же"],0,"th заголовочная ячейка, td обычная."],
+["Что делает colspan=\"2\"?",["Растягивает ячейку на две колонки","Растягивает ячейку на две строки","Добавляет две строки","Удваивает шрифт"],0,"Для объединения по вертикали есть rowspan."],
+["Какая запись создаёт комментарий в HTML?",["// комментарий","# комментарий","<!-- комментарий -->","/* комментарий */"],2,"Комментарий не показывается на странице."],
+["Какая запись выводит знак ©?",["&copy;","&c;","&cr;","(c)"],0,"&copy; превращается в ©."],
+["Как показать на странице текст <p>, чтобы он не превратился в тег?",["\\<p\\>","&lt;p&gt;","<<p>>","'<p>'"],1,"&lt; это «меньше», &gt; это «больше»."]
+];
+let done=0,right=0;
+function render(){
+  done=0;right=0;$('#qs').innerHTML='';
+  Q.forEach((q,i)=>{
+    const c=document.createElement('div');c.className='card q';
+    c.innerHTML=`<h3>${i+1}. ${esc(q[0])}</h3>`;
+    q[1].forEach((o,j)=>{
+      const b=document.createElement('button');
+      b.className='opt'+(/^[<&.#]|\//.test(o)&&o.length<28?'':' txt');b.textContent=o;
+      b.onclick=()=>{
+        c.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+        const ok=j===q[2];b.classList.add(ok?'ok':'bad');
+        if(!ok)c.querySelectorAll('.opt')[q[2]].classList.add('ok');
+        const w=document.createElement('div');w.className='why';w.textContent=(ok?'Верно. ':'Не совсем. ')+q[3];c.append(w);
+        done++;if(ok)right++;upd();
+      };
+      c.append(b);
+    });
+    $('#qs').append(c);
+  });
+  upd();
+}
+function upd(){$('#score').textContent=done<Q.length?`Отвечено: ${done} из ${Q.length}`:`Результат: ${right} из ${Q.length}`}
+$('#reset').onclick=()=>{render();scrollTo(0,0)};
+render();
+
+/* ---------- ПРАКТИКА ---------- */
+const has=(d,s,n=1)=>d.querySelectorAll(s).length>=n;
+const T=[
+{t:"1. class и id",d:"Дай заголовку h1 id=\"title\". Первому абзацу class=\"text\", а второму два класса: text и big.",
+ start:"<h1>Заголовок</h1>\n<p>Первый абзац</p>\n<p>Второй абзац</p>",
+ c:[["h1 с id=\"title\"",d=>has(d,'h1#title')],["абзац с классом text",d=>has(d,'p.text')],["абзац с классами text и big",d=>has(d,'p.text.big')],["два абзаца с классом text",d=>has(d,'p.text',2)]]},
+{t:"2. div и span",d:"Оберни весь товар в div с классом card. Цену (число) оберни в span с классом price. Внутри card должен остаться заголовок h3.",
+ start:"<h3>Кроссовки</h3>\n<p>Цена: 5000 руб.</p>",
+ c:[["div.card",d=>has(d,'div.card')],["h3 внутри card",d=>has(d,'div.card h3')],["span.price внутри абзаца",d=>has(d,'p span.price')],["в span есть число",d=>[...d.querySelectorAll('span.price')].some(e=>/\d/.test(e.textContent))]]},
+{t:"3. Форма входа",d:"Сделай форму: поле «Email» (type email) с label, поле «Пароль» (type password) с label, и кнопка отправки. Каждый label связан с полем через for и id. Оба поля обязательные (required).",
+ start:"",
+ c:[["form",d=>has(d,'form')],["input type=email",d=>has(d,'form input[type=email]')],["input type=password",d=>has(d,'form input[type=password]')],
+    ["label for связан с id поля",d=>{const ls=[...d.querySelectorAll('label[for]')];return ls.length>=2&&ls.every(l=>d.getElementById(l.getAttribute('for')))}],
+    ["оба поля required",d=>has(d,'input[type=email][required]')&&has(d,'input[type=password][required]')],
+    ["кнопка button или submit",d=>has(d,'button')||has(d,'input[type=submit]')]]},
+{t:"4. Анкета",d:"Сделай анкету: многострочное поле textarea с placeholder, выпадающий список select минимум с тремя option, два radio с одинаковым name, один checkbox.",
+ start:"",
+ c:[["textarea с placeholder",d=>has(d,'textarea[placeholder]')],["select и минимум 3 option",d=>has(d,'select option',3)],
+    ["два radio",d=>has(d,'input[type=radio]',2)],["у radio одинаковый name",d=>{const r=[...d.querySelectorAll('input[type=radio]')];return r.length>=2&&r[0].name&&r.every(x=>x.name===r[0].name)}],
+    ["checkbox",d=>has(d,'input[type=checkbox]')]]},
+{t:"5. Таблица",d:"Сделай таблицу с caption, строкой заголовков (th: Имя, Возраст) и двумя строками с данными (td).",
+ start:"",
+ c:[["table",d=>has(d,'table')],["caption",d=>has(d,'table caption')],["минимум 2 th",d=>has(d,'th',2)],["минимум 4 td",d=>has(d,'td',4)],["минимум 3 строки tr",d=>has(d,'tr',3)]]},
+{t:"6. Объединение ячеек",d:"Добавь в таблицу первую строку с одной ячейкой th на две колонки (colspan=\"2\") с текстом «Класс 7А». Остальное оставь как есть.",
+ start:"<table>\n  <tr><th>Имя</th><th>Оценка</th></tr>\n  <tr><td>Аня</td><td>5</td></tr>\n</table>",
+ c:[["th с colspan=\"2\"",d=>has(d,'th[colspan="2"]')],["текст «Класс 7А»",d=>[...d.querySelectorAll('th')].some(e=>/класс 7а/i.test(e.textContent))],["старые строки на месте",d=>has(d,'td',2)&&has(d,'tr',3)]]},
+{t:"7. Комментарии и спецсимволы",d:"Добавь комментарий с любым текстом. В подвал поставь знак © через &copy;. Между словами «Цена» и «100» поставь неразрывный пробел &nbsp;. Выведи на странице текст <p> как обычный текст, используя &lt; и &gt;.",
+ start:"<p>Цена 100</p>\n<footer>2026 Мой сайт</footer>",
+ c:[["есть комментарий",(d,raw)=>/<!--[\s\S]*?-->/.test(raw)],["&copy; в footer",(d,raw)=>/<footer>[^]*&copy;/.test(raw)],["&nbsp; в тексте",(d,raw)=>/&nbsp;/.test(raw)],["&lt; и &gt;",(d,raw)=>/&lt;/.test(raw)&&/&gt;/.test(raw)]]},
+{t:"8. Итоговая страница",d:"Собери визитку: header с h1, main с div class=\"card\", внутри h2, абзац со span и таблица из двух строк. Затем форма с одним text-полем, label и кнопкой. В footer знак &copy;.",
+ start:"",
+ c:[["header и h1",d=>has(d,'header h1')],["main > div.card > h2",d=>has(d,'main div.card h2')],["span в абзаце",d=>has(d,'p span')],["таблица минимум с 2 строками",d=>has(d,'table tr',2)],
+    ["форма с text, label и кнопкой",d=>has(d,'form input[type=text]')&&has(d,'form label')&&(has(d,'form button')||has(d,'input[type=submit]'))],["footer с &copy;",(d,raw)=>/<footer>[^]*&copy;/.test(raw)]]}
+];
+T.forEach((k,i)=>{
+  const c=document.createElement('div');c.className='card';
+  c.innerHTML=`<h3>${esc(k.t)}<span class="done" hidden>выполнено</span></h3><p>${esc(k.d)}</p>
+  <textarea spellcheck="false" aria-label="Код задания ${i+1}"></textarea>
+  <iframe sandbox title="Результат"></iframe>
+  <div class="row"><button class="btn">Проверить</button><button class="btn g">Сбросить</button></div>
+  <ul class="chk"></ul>`;
+  const ta=$('textarea',c),fr=$('iframe',c),ul=$('.chk',c);
+  ta.value=k.start;
+  const show=()=>fr.srcdoc=`<meta charset=utf-8><body style="font-family:sans-serif;margin:10px">${ta.value}`;
+  ta.oninput=show;show();
+  $('.btn:not(.g)',c).onclick=()=>{
+    const raw=ta.value,d=new DOMParser().parseFromString(raw,'text/html');
+    let all=true;ul.innerHTML='';
+    k.c.forEach(([n,f])=>{
+      let ok=false;try{ok=f(d,raw)}catch(e){}
+      all=all&&ok;
+      const li=document.createElement('li');li.className=ok?'ok':'bad';li.textContent=(ok?'✓ ':'✗ ')+n;ul.append(li);
+    });
+    $('.done',c).hidden=!all;
+  };
+  $('.btn.g',c).onclick=()=>{ta.value=k.start;show();ul.innerHTML='';$('.done',c).hidden=true};
+  $('#tasks').append(c);
+});
+</script>
+</body>
+</html>
